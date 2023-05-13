@@ -1,36 +1,35 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 
 void incluiUsuario(int *id, char nomeCompleto[][50],char email[][50], char sexo[][50], char endereco[][50], double *altura, int *vacina){
     int i;
     for (i = 0; i < 5; i++){
-        printf("Digite o codigo do usuario:\n");
-        scanf("%d", &id[i]);
-        getchar();
+        id = rand() % 1000;
 
-        printf("Digite o nome completo do usuario:\n");
+        printf("Digite o nome completo do usuario:");
         fgets(nomeCompleto[i],50, stdin);
         strtok(nomeCompleto[i], "\n");
 
-        printf("Digite o email do usuario:\n");
+        printf("Digite o email do usuario:");
         fgets(email[i], 50, stdin);
-        strtok(email[i], "\n");
+        strtok(email[i], "@");
 
-        printf("Digite o sexo do usuario:\n");
-        scanf("%s", sexo[i]);
-        getchar();
+        // printf("Digite o sexo do usuario:\n");
+        // scanf("%s", sexo[i]);
+        // getchar();
 
-        printf("Digite o endereco do usuario:\n");
-        fgets(endereco[i], 50, stdin);
-        strtok(endereco[i], "\n");
+        // printf("Digite o endereco do usuario:");
+        // fgets(endereco[i], 50, stdin);
+        // strtok(endereco[i], "\n");
 
-        printf("Digite a altura do usuario:\n");
-        scanf("%lf", &altura[i]);
-        getchar();
+        // printf("Digite a altura do usuario:\n");
+        // scanf("%lf", &altura[i]);
+        // getchar();
 
-        printf("O usuario esta vacinado:\n");
-        scanf("%d", &vacina[i]);
-        getchar();
+        // printf("O usuario esta vacinado:\n");
+        // scanf("%d", &vacina[i]);
+        // getchar();
     }
     
 }
