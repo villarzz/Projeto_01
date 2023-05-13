@@ -14,32 +14,36 @@ void incluiUsuario(int *id, char nomeCompleto[][50], char email[][50], char sexo
         strtok(nomeCompleto[i], "\n");
 
         printf("Digite o email do usuario:");
-        while (fgets(email, 50, stdin) != NULL)
+        while (fgets(email[i], 50, stdin) != NULL)
         {
             if (strchr(email, '@') != NULL)
             {
-                printf("O email digitado contem um '@'\n");
                 break;
+            }
+            else
+            {
+                printf("O email digitado nao contem um '@'. Digite novamente:\n");
             }
         }
 
-        // printf("Digite o sexo do usuario:\n");
-        // fgets(sexo[i], 50, stdin);
-        // strtok(sexo[i], "\n");
-        // int nome_certo = 0;
-        // for (int j = 0; j < strlen(sexo[i]); j++)
-        // {
-        //     if (sexo[i][j] == 'Feminino' || sexo[i][j] == 'Masculino' || sexo[i][j] == 'Indiferente')
-        //     {
-        //         nome_certo = 1;
-        //         break;
-        //     }
-        //     else if (nome_certo == 0)
-        //     {
-        //         printf("Só são aceitas as palavras: Feminino, Masculino ou Indiferente.\n");
-        //         continue; // volta para o inicio do loop
-        //     }
-        // }
+        int valido = 0;
+        while (valido == 0)
+        {
+            printf("Digite o sexo do usuario:");
+            fgets(sexo, 50, stdin);
+
+            int posicao_quebra_linha = strcspn(sexo[i], "\n");
+            sexo[i][posicao_quebra_linha] = '\0';
+
+            if (strcmp(sexo, "Feminino") == 0 || strcmp(sexo, "Masculino") == 0 || strcmp(sexo, "Indiferente") == 0)
+            {
+                valido = 1;
+            }
+            else
+            {
+                printf("Sexo invalido, Digite 'Feminino','Masculino' ou 'Indiferente'.\n");
+            }
+        }
 
         // printf("Digite o endereco do usuario:");
         // fgets(endereco[i], 50, stdin);
@@ -66,9 +70,10 @@ int main()
     int vacina[5];
 
     incluiUsuario(id, nomeCompleto, email, sexo, endereco, altura, vacina);
-    // for(i=0;i<5;i++){
-    //     printf("%d - %s- %s- %s- %s- %.2lf- %d\n", id[i], nomeCompleto[i], email[i], sexo[i], endereco[i], altura[i], vacina[i]);
-    // }
+    for (i = 0; i < 5; i++)
+    {
+        printf("%d - %s- %s- %s- %s- %.2lf- %d\n", id[i], nomeCompleto[i], email[i], sexo[i], endereco[i], altura[i], vacina[i]);
+    }
 
     return 0;
 }
