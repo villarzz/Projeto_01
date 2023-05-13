@@ -45,13 +45,25 @@ void incluiUsuario(int *id, char nomeCompleto[][50], char email[][50], char sexo
             }
         }
 
-        // printf("Digite o endereco do usuario:");
-        // fgets(endereco[i], 50, stdin);
-        // strtok(endereco[i], "\n");
+        printf("Digite o endereco do usuario:");
+        fgets(endereco[i], 50, stdin);
+        strtok(endereco[i], "\n");
 
-        // printf("Digite a altura do usuario:\n");
-        // scanf("%lf", &altura[i]);
-        // getchar();
+        int altura_valida = 0;
+        while (altura_valida == 0)
+        {
+            printf("Digite a altura do usuario:\n");
+            fgets(altura, 50, stdin);
+
+            if(sscanf(altura, "%lf", &altura[i]) == 1 && altura[i] >= 1.0 && altura[i] <= 2.0)
+            {
+                altura_valida = 1;
+            }
+            else
+            {
+                printf("Altura invalida digite. Um valor entre 1.0 e 2.0");
+            }
+        }
 
         // printf("O usuario esta vacinado:\n");
         // scanf("%d", &vacina[i]);
