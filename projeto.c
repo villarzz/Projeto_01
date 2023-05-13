@@ -14,25 +14,32 @@ void incluiUsuario(int *id, char nomeCompleto[][50], char email[][50], char sexo
         strtok(nomeCompleto[i], "\n");
 
         printf("Digite o email do usuario:");
-        fgets(email[i], 50, stdin);
-        int tem_arroba = 0;
-        for (int j = 0; j < strlen(email[i]); j++)
+        while (fgets(email, 50, stdin) != NULL)
         {
-            if (email[i][j] == '@')
+            if (strchr(email, '@') != NULL)
             {
-                tem_arroba = 1;
+                printf("O email digitado contem um '@'\n");
                 break;
-            }else if (tem_arroba == 0)
-            {
-                printf("Email invalido. Digite novamente.\n");
-                continue; // volta para o inicio do loop
             }
         }
 
-
         // printf("Digite o sexo do usuario:\n");
-        // scanf("%s", sexo[i]);
-        // getchar();
+        // fgets(sexo[i], 50, stdin);
+        // strtok(sexo[i], "\n");
+        // int nome_certo = 0;
+        // for (int j = 0; j < strlen(sexo[i]); j++)
+        // {
+        //     if (sexo[i][j] == 'Feminino' || sexo[i][j] == 'Masculino' || sexo[i][j] == 'Indiferente')
+        //     {
+        //         nome_certo = 1;
+        //         break;
+        //     }
+        //     else if (nome_certo == 0)
+        //     {
+        //         printf("Só são aceitas as palavras: Feminino, Masculino ou Indiferente.\n");
+        //         continue; // volta para o inicio do loop
+        //     }
+        // }
 
         // printf("Digite o endereco do usuario:");
         // fgets(endereco[i], 50, stdin);
