@@ -65,9 +65,9 @@ void incluiUsuario(int *id, char nomeCompleto[][50], char email[][50], char sexo
             }
         }
 
-        // printf("O usuario esta vacinado:\n");
-        // scanf("%d", &vacina[i]);
-        // getchar();
+        printf("O usuario esta vacinado:\n");
+        scanf("%d", &vacina[i]);
+        getchar();
     }
 }
 
