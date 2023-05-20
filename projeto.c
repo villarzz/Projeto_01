@@ -2,90 +2,128 @@
 #include <stdlib.h>
 #include <string.h>
 
-void incluiUsuario(int *id, char nomeCompleto[][50], char email[][50], char sexo[][50], char endereco[][50], double *altura, int *vacina)
+#define MAXIMO_USERS 1000
+
+int numeroUsuarios = 0;
+int vetorId[MAXIMO_USERS];
+char vetorNomeCompleto[MAXIMO_USERS][50];
+char vetorEmails[MAXIMO_USERS][50];
+char vetorSexo[MAXIMO_USERS][10];
+char vetorEndereco[MAXIMO_USERS][100];
+double vetorAltura[MAXIMO_USERS];
+int vetorVacina[MAXIMO_USERS];
+
+void abreMenu()
 {
-    int i;
-    for (i = 0; i < 5; i++)
+    printf("Digite 1 para adicionar usuario\n");
+    printf("Digite 2 para editar usuario\n");
+    printf("Digite 3 para excluir usuario\n");
+    printf("Digite 4 para buscar um  usuario por email\n");
+    printf("Digite 5 para imprimir todos os usuarios\n");
+    printf("Digite 6 para fazer backup dos usuarios usuario\n");
+    printf("Digite 7 para restaurar os usuario\n");
+    printf("Caso deseje fechar o programa tecle 0\n");
+    printf("Digite a opção escolhida: ");
+}
+
+void incluiUsuario()
+{
+    int id, vacina;
+    char nome[100], email[100], sexo[100], endereco[100];
+    double altura;
+
+    id = rand() % 1000;
+
+    printf("Digite o nome completo do usuario:");
+    fgets(nome, 50, stdin);
+    strtok(nome, "\n");
+
+    printf("Digite o email do usuario:");
+    while (fgets(email, 50, stdin) != NULL)
     {
-        id[i] = rand() % 1000;
-
-        printf("Digite o nome completo do usuario:");
-        fgets(nomeCompleto[i], 50, stdin);
-        strtok(nomeCompleto[i], "\n");
-
-        printf("Digite o email do usuario:");
-        while (fgets(email[i], 50, stdin) != NULL)
+        if (strchr(email, '@') != NULL)
         {
-            if (strchr(email, '@') != NULL)
-            {
-                break;
-            }
-            else
-            {
-                printf("O email digitado nao contem um '@'. Digite novamente:\n");
-            }
+            break;
         }
-
-        int valido = 0;
-        while (valido == 0)
+        else
         {
-            printf("Digite o sexo do usuario:");
-            fgets(sexo, 50, stdin);
-
-            int posicao_quebra_linha = strcspn(sexo[i], "\n");
-            sexo[i][posicao_quebra_linha] = '\0';
-
-            if (strcmp(sexo, "Feminino") == 0 || strcmp(sexo, "Masculino") == 0 || strcmp(sexo, "Indiferente") == 0)
-            {
-                valido = 1;
-            }
-            else
-            {
-                printf("Sexo invalido, Digite 'Feminino','Masculino' ou 'Indiferente'.\n");
-            }
+            printf("O email digitado nao contem um '@'. Digite novamente:\n");
         }
-
-        printf("Digite o endereco do usuario:");
-        fgets(endereco[i], 50, stdin);
-        strtok(endereco[i], "\n");
-
-        int altura_valida = 0;
-        while (altura_valida == 0)
-        {
-            printf("Digite a altura do usuario:\n");
-            fgets(altura, 50, stdin);
-
-            if(sscanf(altura, "%lf", &altura[i]) == 1 && altura[i] >= 1.0 && altura[i] <= 2.0)
-            {
-                altura_valida = 1;
-            }
-            else
-            {
-                printf("Altura invalida digite. Um valor entre 1.0 e 2.0");
-            }
-        }
-
-        printf("O usuario esta vacinado:\n");
-        scanf("%d", &vacina[i]);
-        getchar();
     }
+
+    int valido = 0;
+    while (valido == 0)
+    {
+        printf("Digite o sexo do usuario:");
+        fgets(sexo, 50, stdin);
+
+        int posicao_quebra_linha = strcspn(sexo, "\n");
+        sexo[posicao_quebra_linha] = '\0';
+
+        if (strcmp(sexo, "Feminino") == 0 || strcmp(sexo, "Masculino") == 0 || strcmp(sexo, "Indiferente") == 0)
+        {
+            valido = 1;
+        }
+        else
+        {
+            printf("Sexo invalido, Digite 'Feminino','Masculino' ou 'Indiferente'.\n");
+        }
+    }
+
+    printf("Digite o endereco do usuario:");
+    fgets(endereco, 50, stdin);
+    strtok(endereco, "\n");
+
+    int altura_valida = 0;
+    while (altura_valida == 0)
+    {
+        printf("Digite a altura do usuario:\n");
+        scanf("%lf", &altura);
+
+        if (altura >= 1.0 && altura <= 2.0)
+        {
+            altura_valida = 1;
+        }
+        else
+        {
+            printf("Altura invalida. Digite um valor entre 1.0 e 2.0.\n");
+        }
+    }
+
+    printf("O usuario esta vacinado (digite 1 para sim e 0 para nao):\n");
+    scanf("%d", &vacina);
+    getchar();
+
+    vetorId[numeroUsuarios] = id;
+    strcpy(vetorNomeCompleto[numeroUsuarios], nome);
+    strcpy(vetorEmails[numeroUsuarios], email);
+    strcpy(vetorSexo[numeroUsuarios], sexo);
+    strcpy(vetorEndereco[numeroUsuarios], endereco);
+    vetorAltura[numeroUsuarios] = altura;
+    vetorVacina[numeroUsuarios] = vacina;
+    numeroUsuarios++;
 }
 
 int main()
 {
-    int id[5], i;
-    char nomeCompleto[5][50];
-    char email[5][50];
-    char sexo[5][50];
-    char endereco[5][50];
-    double altura[5];
-    int vacina[5];
+    char opcao = ' ';
 
-    incluiUsuario(id, nomeCompleto, email, sexo, endereco, altura, vacina);
-    for (i = 0; i < 5; i++)
+    while (opcao != '0')
     {
-        printf("%d - %s- %s- %s- %s- %.2lf- %d\n", id[i], nomeCompleto[i], email[i], sexo[i], endereco[i], altura[i], vacina[i]);
-    }
+        abreMenu();
+        scanf("%c", &opcao);
+        getchar();
 
-    return 0;
+        switch (opcao)
+        {
+        case '1':
+            incluiUsuario();
+            break;
+        case '0':
+            printf('programa fechado')
+        default:
+            printf("Opção invalida");
+            break;
+        }
+    }
 }
