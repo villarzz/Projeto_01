@@ -4,6 +4,7 @@
 
 #define MAXIMO_USERS 1000
 
+//vetores originais
 int numeroUsuarios = 0;
 int vetorId[MAXIMO_USERS];
 char vetorNomeCompleto[MAXIMO_USERS][50];
@@ -13,10 +14,21 @@ char vetorEndereco[MAXIMO_USERS][100];
 double vetorAltura[MAXIMO_USERS];
 int vetorVacina[MAXIMO_USERS];
 
+//vetores backup
+int vetorBackupId[MAXIMO_USERS];
+char vetorBackupNomeCompleto[MAXIMO_USERS][50];
+char vetorBackupEmails[MAXIMO_USERS][50];
+char vetorBackupSexo[MAXIMO_USERS][10];
+char vetorBackupEndereco[MAXIMO_USERS][100];
+double vetorBackupAltura[MAXIMO_USERS];
+int vetorBackupVacina[MAXIMO_USERS];
+
 void abreMenu()
 {
     printf("Digite 1 para adicionar usuario\n");
+    printf("Digite 4 para buscar usuario por email\n");
     printf("Digite 5 para imprimir todos os usuarios\n");
+    printf("Digite 6 para fazer o backup de  todos os usuarios\n");
     printf("Caso deseje fechar o programa tecle 0\n");
     printf("Digite a opção escolhida: ");
 }
@@ -99,19 +111,6 @@ void incluiUsuario()
     numeroUsuarios++;
 }
 
-void imprimirUsuario(){
-    for (int i = 0; i < numeroUsu; i++)
-    {
-        printf("id: %d\n", vetorId[i]);
-        printf("email: %s\n", vetorEmail[i]);
-        printf("nome: %s\n", vetorNomeCompleto[i]);
-        printf("sexo: %s\n", vetorSexo[i]);
-        printf("endereco: %s\n", vetorEndereco[i]);
-        printf("altura: %.2lf\n", vetorAltura[i]);
-        printf("vacinação: %d\n", vetorVacina[i]);
-    }
-}
-
 void buscaPorEmail(){
     char email[100];
     printf("Digite o email que você quer buscar: ");
@@ -128,8 +127,33 @@ void buscaPorEmail(){
             printf("status de vacinação: %d\n",vetorVacina[i]);
         }
     }
-    
+}
 
+void imprimirUsuario(){
+    for (int i = 0; i < numeroUsu; i++)
+    {
+        printf("id: %d\n", vetorId[i]);
+        printf("email: %s\n", vetorEmail[i]);
+        printf("nome: %s\n", vetorNomeCompleto[i]);
+        printf("sexo: %s\n", vetorSexo[i]);
+        printf("endereco: %s\n", vetorEndereco[i]);
+        printf("altura: %.2lf\n", vetorAltura[i]);
+        printf("vacinação: %d\n", vetorVacina[i]);
+    }
+}
+
+void backUpUsuarios(){
+    for (int i = 0; i < numu; i++)
+    {
+        vetorBackupId[i] = vetorId[i];
+        strcpy(vetorBackupNomeCompleto[i],vetorNomeCompleto[i]);
+        strcpy(vetorBackupEmails[i],vetorEmails[i]);
+        strcpy(vetorBackupSexo[i],vetorSexo[i]);
+        strcpy(vetorBackupEndereco[i],vetorEndereco[i]);
+        vetorBackupAltura[i] = vetorAltura[i];
+        vetorBackupVacina[i] = vetorVacina[i];
+    }
+    
 }
 
 int main()
@@ -147,8 +171,14 @@ int main()
         case '1':
             incluiUsuario();
             break;
+        case '4':
+            buscaPorEmail();
+            break;
         case '5':
             imprimirUsuario();
+            break;
+        case '6':
+            backUpUsuarios();
             break;
         case '0':
             printf('programa fechado')
