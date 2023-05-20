@@ -104,6 +104,19 @@ void incluiUsuario()
     numeroUsuarios++;
 }
 
+void imprimirUsuario(){
+    for (int i = 0; i < numeroUsu; i++)
+    {
+        printf("id: %d\n", vetorId[i]);
+        printf("email: %s\n", vetorEmail[i]);
+        printf("nome: %s\n", vetorNomeCompleto[i]);
+        printf("sexo: %s\n", vetorSexo[i]);
+        printf("endereco: %s\n", vetorEndereco[i]);
+        printf("altura: %.2lf\n", vetorAltura[i]);
+        printf("vacinação: %d\n", vetorVacina[i]);
+    }
+}
+
 int main()
 {
     char opcao = ' ';
@@ -118,6 +131,9 @@ int main()
         {
         case '1':
             incluiUsuario();
+            break;
+        case '5':
+            imprimirUsuario();
             break;
         case '0':
             printf('programa fechado')
