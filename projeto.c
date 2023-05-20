@@ -16,12 +16,7 @@ int vetorVacina[MAXIMO_USERS];
 void abreMenu()
 {
     printf("Digite 1 para adicionar usuario\n");
-    printf("Digite 2 para editar usuario\n");
-    printf("Digite 3 para excluir usuario\n");
-    printf("Digite 4 para buscar um  usuario por email\n");
     printf("Digite 5 para imprimir todos os usuarios\n");
-    printf("Digite 6 para fazer backup dos usuarios usuario\n");
-    printf("Digite 7 para restaurar os usuario\n");
     printf("Caso deseje fechar o programa tecle 0\n");
     printf("Digite a opção escolhida: ");
 }
@@ -115,6 +110,26 @@ void imprimirUsuario(){
         printf("altura: %.2lf\n", vetorAltura[i]);
         printf("vacinação: %d\n", vetorVacina[i]);
     }
+}
+
+void buscaPorEmail(){
+    char email[100];
+    printf("Digite o email que você quer buscar: ");
+    scanf(" %c",email);
+
+    for (int i = 0; i < numeroU; i++)
+    {
+        if(strcmp(vetorEmails[i],email)==0){
+            printf("id: %d\n",vetorId[i]);
+            printf("nome: %s\n",vetorNomeCompleto[i]);
+            printf("sexo: %s\n",vetorSexo[i]);
+            printf("endereco: %s\n",vetorEndereco[i]);
+            printf("altura: %.2lf\n",vetorAltura[i]);
+            printf("status de vacinação: %d\n",vetorVacina[i]);
+        }
+    }
+    
+
 }
 
 int main()
